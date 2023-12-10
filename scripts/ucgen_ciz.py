@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import rospy
-from  geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist
 import time
-import math
+from math import radians
 
 def ucgen_ciz():
     rospy.init_node("ucgen_ciz")
@@ -24,18 +24,13 @@ def ucgen_ciz():
 
         hiz.linear.x = 0.0
         yayin.publish(hiz)
-
-    
         radsn = math.radians(120)  
         hiz.angular.z = radsn
         yayin.publish(hiz)
-        
         donme_suresi =1.0
         time.sleep(donme_suresi)
-        
         hiz.angular.z = 0.0
         yayin.publish(hiz)
-        
         rospy.loginfo("Donuldu...")
         
 ucgen_ciz()
