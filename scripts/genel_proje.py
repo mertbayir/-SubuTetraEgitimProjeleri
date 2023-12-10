@@ -65,5 +65,4 @@ class NesneTespitHareket():
             self.hareket.angular.z = 0.0
             self.pub.publish(self.hareket)
 
-
 NesneTespitHareket()
