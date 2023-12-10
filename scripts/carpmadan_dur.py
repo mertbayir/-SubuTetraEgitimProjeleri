@@ -10,8 +10,8 @@ class carpmadanDur:
         rospy.init_node('carpmadan_dur')
         self.laser_scan = LaserScan()
         self.hiz = Twist()
-        self.hiz_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-        self.laser_scan_subscriber = rospy.Subscriber('/scan', LaserScan, self.lazerCallback)
+        self.hiz_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.laser_scan_sub = rospy.Subscriber('/scan', LaserScan, self.lazerCallback)
 
     def lazerCallback(self, scan):
         sol_on = list(scan.ranges[0:9])
@@ -23,7 +23,7 @@ class carpmadanDur:
         min_sol = min(sol)
         min_sag = min(sag)
     
-        if min_sol > 1.0 and min_sag >1.0 and min_on > 1.0: 
+        if min_on > 1.0: 
                 self.hiz.linear.x = 0.3
                 self.hiz.angular.z = 0.0
                 self.hiz_publisher.publish(self.hiz)
@@ -38,11 +38,12 @@ class carpmadanDur:
                
 if __name__ == '__main__':
     try:
-        obstacle_avoider = carpmadanDur()
+        dur = carpmadanDur()
         rospy.spin()
     except rospy.ROSInterruptException:
         rospy.loginfo('Geçersiz İşlem...')
   
+        
         
         
         
